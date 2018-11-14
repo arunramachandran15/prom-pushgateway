@@ -1,0 +1,5 @@
+kubectl -n kube-system create sa tiller
+kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
+helm upgrade --service-account tiller
+helm init   --service-account tiller --canary-image
+helm init  --upgrade --service-account tiller --canary-image
