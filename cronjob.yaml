@@ -1,0 +1,20 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cron-threads-monitor
+spec:
+  schedule: "*/1 * * * *"
+  startingDeadlineSeconds: 20
+  successfulJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      completions: 1
+      template:
+        metadata:
+          name: job-template-sftp
+        spec:
+          containers:
+          - name: container-cron-threads-monitor
+            image: arun15/nodecron-demo
+            command: ["node",  "index.js"]
+          restartPolicy: Never
